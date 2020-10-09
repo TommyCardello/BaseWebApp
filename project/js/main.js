@@ -7,3 +7,30 @@ function showPicture(){
   // jQuery can do a lot of crazy stuff, so make sure to Google around to find out more
   
 }
+
+// $(document).ready(function() {
+//   getWeather();
+// })
+
+function getWeather(searchQuery){
+  var url = "https://api.openweathermap.org/data/2.5/weather?q="+searchQuery+"&units=imperial&APPID="+apiKey;
+
+  $(".city").text("");
+  $(".temp").text("");
+  $(".error-message").text("");
+
+
+
+  $.ajax(url,{success: function(data){
+    // console.log(data);
+    $(".city").text(data.name);
+    $(".temp").text(data.main.temp);
+  }, error: function(error){
+      $(".error-message").text("Error. Can't find this city");
+  }})
+}
+
+function searchWeather(){
+  let searchQuery = $(".search").val();
+  getWeather(searchQuery);
+}
